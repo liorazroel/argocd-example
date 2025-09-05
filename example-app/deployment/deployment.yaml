@@ -1,29 +1,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: demo-api
-  namespace: demo
+  name: example-app-api
+  namespace: example-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: demo-api
+      app: example-app-api
   template:
     metadata:
       labels:
-        app: demo-api
+        app: example-app-api
     spec:
       containers:
-        - name: demo-api
+        - name: example-app-api
           image: fastapi-app:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8000
           envFrom:
             - configMapRef:
-                name: demo-config
+                name: example-app-config
             - secretRef:
-                name: demo-secret
+                name: example-app-secret
           readinessProbe:
             httpGet:
               path: /healthz
